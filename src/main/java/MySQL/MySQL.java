@@ -47,7 +47,7 @@ public class MySQL
     }
 
     // A: all persons that a person endorses, i.e., endorsements of depth one.
-    public void queryA(int id) throws SQLException
+    public void exA(int id) throws SQLException
     {
         // language=SQL
         String query = "";
@@ -68,7 +68,7 @@ public class MySQL
     }
 
     // B: all persons that are endorsed by endorsed persons of a person, i.e., endorsements of depth two.
-    public void queryB(int id) throws SQLException
+    public void exB(int id) throws SQLException
     {
         // language=SQL
         String query = "";
@@ -92,7 +92,7 @@ public class MySQL
     }
 
     // C: endorsements of depth three.
-    public void queryC(int id) throws SQLException
+    public void exC(int id) throws SQLException
     {
         // language=SQL
         String query = "";
@@ -119,7 +119,7 @@ public class MySQL
     }
 
     // D: endorsements of depth four.
-    public void queryD(int id) throws SQLException
+    public void exD(int id) throws SQLException
     {
         // language=SQL
         String query = "";
@@ -149,7 +149,7 @@ public class MySQL
     }
 
     // E: endorsements of depth five.
-    public void queryE(int id) throws SQLException
+    public void exAE(int id) throws SQLException
     {
         // language=SQL
         String query = "";
