@@ -10,7 +10,7 @@ public class Main
         Neo4j neo4j = new Neo4j();
 
         neo4j.connect();
-        neo4j.exA(0);
+        neo4j.runEx( neo4j.exA( 0 ) );
         neo4j.close();
     }
 }

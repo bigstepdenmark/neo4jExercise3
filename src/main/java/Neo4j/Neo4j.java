@@ -26,15 +26,10 @@ public class Neo4j
     }
 
     // A: all persons that a person endorses, i.e., endorsements of depth one.
-    public void exA(int id)
+    public StatementResult exA(int id)
     {
-        StatementResult result = session.run( "MATCH (me {id:" + id + "})-[:ENDORSES]->(other) RETURN other" );
-
-        while( result.hasNext() )
-        {
-            Record record = result.next();
-            System.out.println( record.get( "other" ).get( "name" ).asString() );
-        }
+        System.out.println( "\n::::::::::::::: Ex: A :::::::::::::::" );
+        return session.run( "MATCH (me {id:" + id + "})-[:ENDORSES]->(other) RETURN other" );
     }
 
     // B: all persons that are endorsed by endorsed persons of a person, i.e., endorsements of depth two.
@@ -57,11 +52,19 @@ public class Neo4j
     {
     }
 
-    public void time()
+    public void runEx(StatementResult result)
     {
         long startTime = System.currentTimeMillis();
-        // ----
+
+        while( result.hasNext() )
+        {
+            Record record = result.next();
+            System.out.println( record.get( "other" ).get( "name" ).asString() );
+        }
+
         long endTime = System.currentTimeMillis();
-        long duration = (endTime - startTime);
+
+        System.out.println( "\n:::::::::::::::::::::::::::::::::::::" );
+        System.out.println("Time: " + (endTime - startTime) + " ms");
     }
 }
