@@ -40,39 +40,34 @@ public class MySQL
         if( connection != null ) connection.close();
     }
 
-    private void setResultSet(String query) throws SQLException
-    {
-        statement = connection.createStatement();
-        resultSet = statement.executeQuery( query );
-    }
-
     // A: all persons that a person endorses, i.e., endorsements of depth one.
-    public void exA(int id) throws SQLException
+    public ResultSet exA(int id) throws SQLException
     {
+        System.out.println( "\n::::::::::::::: Ex: A :::::::::::::::" );
+
         // language=SQL
         String query = "";
-        query += "SELECT myfriend.name AS myfriend_name FROM t_user i ";
+        query += "SELECT myfriend.name AS friend_name FROM t_user i ";
 
         query += "JOIN t_user_relations myrelation ON (myrelation.source_node_id = i.id) ";
         query += "JOIN t_user myfriend ON (myfriend.id = myrelation.target_node_id) ";
 
         query += "WHERE i.id = " + id;
 
-        setResultSet( query );
+        statement = connection.createStatement();
+        resultSet = statement.executeQuery( query );
 
-        System.out.println( "\n::::::::::::::: Ex: A :::::::::::::::" );
-        while( resultSet.next() )
-        {
-            System.out.println( resultSet.getString( "myfriend_name" ) );
-        }
+        return resultSet;
     }
 
     // B: all persons that are endorsed by endorsed persons of a person, i.e., endorsements of depth two.
-    public void exB(int id) throws SQLException
+    public ResultSet exB(int id) throws SQLException
     {
+        System.out.println( "\n::::::::::::::: Ex: B :::::::::::::::" );
+
         // language=SQL
         String query = "";
-        query += "SELECT myfriendsfriend.name AS myfriendsfriend_name FROM t_user i ";
+        query += "SELECT myfriendsfriend.name AS friend_name FROM t_user i ";
 
         query += "JOIN t_user_relations myrelation ON (myrelation.source_node_id = i.id) ";
         query += "JOIN t_user myfriend ON (myfriend.id = myrelation.target_node_id) ";
@@ -82,21 +77,20 @@ public class MySQL
 
         query += "WHERE i.id = " + id;
 
-        setResultSet( query );
+        statement = connection.createStatement();
+        resultSet = statement.executeQuery( query );
 
-        System.out.println( "\n::::::::::::::: Ex: B :::::::::::::::" );
-        while( resultSet.next() )
-        {
-            System.out.println( resultSet.getString( "myfriendsfriend_name" ) );
-        }
+        return resultSet;
     }
 
     // C: endorsements of depth three.
-    public void exC(int id) throws SQLException
+    public ResultSet exC(int id) throws SQLException
     {
+        System.out.println( "\n::::::::::::::: Ex: C :::::::::::::::" );
+
         // language=SQL
         String query = "";
-        query += "SELECT myfriendsfriendsfriend.name AS myfriendsfriendsfriend_name FROM t_user i ";
+        query += "SELECT myfriendsfriendsfriend.name AS friend_name FROM t_user i ";
 
         query += "JOIN t_user_relations myrelation ON (myrelation.source_node_id = i.id) ";
         query += "JOIN t_user myfriend ON (myfriend.id = myrelation.target_node_id) ";
@@ -109,21 +103,20 @@ public class MySQL
 
         query += "WHERE i.id = " + id;
 
-        setResultSet( query );
+        statement = connection.createStatement();
+        resultSet = statement.executeQuery( query );
 
-        System.out.println( "\n::::::::::::::: Ex: C :::::::::::::::" );
-        while( resultSet.next() )
-        {
-            System.out.println( resultSet.getString( "myfriendsfriendsfriend_name" ) );
-        }
+        return resultSet;
     }
 
     // D: endorsements of depth four.
-    public void exD(int id) throws SQLException
+    public ResultSet exD(int id) throws SQLException
     {
+        System.out.println( "\n::::::::::::::: Ex: D :::::::::::::::" );
+
         // language=SQL
         String query = "";
-        query += "SELECT myfriendsfriendsfriendsfriend.name AS myfriendsfriendsfriendsfriend_name FROM t_user i ";
+        query += "SELECT myfriendsfriendsfriendsfriend.name AS friend_name FROM t_user i ";
 
         query += "JOIN t_user_relations myrelation ON (myrelation.source_node_id = i.id) ";
         query += "JOIN t_user myfriend ON (myfriend.id = myrelation.target_node_id) ";
@@ -139,21 +132,20 @@ public class MySQL
 
         query += "WHERE i.id = " + id;
 
-        setResultSet( query );
+        statement = connection.createStatement();
+        resultSet = statement.executeQuery( query );
 
-        System.out.println( "\n::::::::::::::: Ex: D :::::::::::::::" );
-        while( resultSet.next() )
-        {
-            System.out.println( resultSet.getString( "myfriendsfriendsfriendsfriend_name" ) );
-        }
+        return resultSet;
     }
 
     // E: endorsements of depth five.
-    public void exAE(int id) throws SQLException
+    public ResultSet exE(int id) throws SQLException
     {
+        System.out.println( "\n::::::::::::::: Ex: E :::::::::::::::" );
+
         // language=SQL
         String query = "";
-        query += "SELECT myfriendsfriendsfriendsfriendsfriend.name AS myfriendsfriendsfriendsfriendsfriend_name FROM t_user i ";
+        query += "SELECT myfriendsfriendsfriendsfriendsfriend.name AS friend_name FROM t_user i ";
 
         query += "JOIN t_user_relations myrelation ON (myrelation.source_node_id = i.id) ";
         query += "JOIN t_user myfriend ON (myfriend.id = myrelation.target_node_id) ";
@@ -172,12 +164,24 @@ public class MySQL
 
         query += "WHERE i.id = " + id;
 
-        setResultSet( query );
+        statement = connection.createStatement();
+        resultSet = statement.executeQuery( query );
 
-        System.out.println( "\n::::::::::::::: Ex: E :::::::::::::::" );
+        return resultSet;
+    }
+
+    public void runEx(ResultSet resultSet) throws SQLException
+    {
+        long startTime = System.currentTimeMillis();
+
         while( resultSet.next() )
         {
-            System.out.println( resultSet.getString( "myfriendsfriendsfriendsfriendsfriend_name" ) );
+            System.out.println( resultSet.getString( "friend_name" ) );
         }
+
+        long endTime = System.currentTimeMillis();
+
+        System.out.println( "\n:::::::::::::::::::::::::::::::::::::" );
+        System.out.println( "Time: " + ( endTime - startTime ) + " ms" );
     }
 }

@@ -12,7 +12,7 @@ public class Main
         MySQL mySQL = new MySQL();
 
         mySQL.connect();
-        mySQL.exA(0);
+        mySQL.runEx( mySQL.exA(0) );
         mySQL.close();
     }
 }
