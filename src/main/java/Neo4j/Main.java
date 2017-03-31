@@ -9,16 +9,8 @@ public class Main
     {
         Neo4j neo4j = new Neo4j();
 
-        long startTime = System.currentTimeMillis();
         neo4j.connect();
-
-        neo4j.getNames();
-
+        neo4j.exA(0);
         neo4j.close();
-        long endTime = System.currentTimeMillis();
-
-        long duration = (endTime - startTime);
-
-        System.out.println(duration);
     }
 }

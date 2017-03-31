@@ -56,4 +56,12 @@ public class Neo4j
     public void exE(int id)
     {
     }
+
+    public void time()
+    {
+        long startTime = System.currentTimeMillis();
+        // ----
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime);
+    }
 }
