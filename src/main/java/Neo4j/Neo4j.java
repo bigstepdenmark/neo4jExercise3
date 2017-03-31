@@ -2,6 +2,8 @@ package Neo4j;
 
 import org.neo4j.driver.v1.*;
 
+import java.util.ArrayList;
+
 import static org.neo4j.driver.v1.Values.parameters;
 
 /**
@@ -9,7 +11,6 @@ import static org.neo4j.driver.v1.Values.parameters;
  */
 public class Neo4j
 {
-
     private Driver driver;
     private Session session;
 
@@ -28,7 +29,7 @@ public class Neo4j
     // A: all persons that a person endorses, i.e., endorsements of depth one.
     public StatementResult exA(int id)
     {
-        System.out.println( "\n::::::::::::::: Ex: A :::::::::::::::" );
+        System.out.println( "\n::::::::::::::: Ex: A (ID: " + id + ") :::::::::::::::" );
         return session.run( "MATCH (me {id:" + id + "})-[:ENDORSES]->(other) RETURN other" );
     }
 
@@ -52,9 +53,9 @@ public class Neo4j
     {
     }
 
-    public void runEx(StatementResult result)
+    public void runEx(StatementResult result, ArrayList<String> timeList)
     {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
 
         while( result.hasNext() )
         {
@@ -62,9 +63,8 @@ public class Neo4j
             System.out.println( record.get( "other" ).get( "name" ).asString() );
         }
 
-        long endTime = System.currentTimeMillis();
+        long endTime = System.nanoTime();
 
-        System.out.println( "\n:::::::::::::::::::::::::::::::::::::" );
-        System.out.println("Time: " + (endTime - startTime) + " ms");
+        timeList.add( Long.toString( endTime - startTime ) );
     }
 }

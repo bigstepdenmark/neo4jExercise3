@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * Created by ismailcam on 27/03/2017.
@@ -43,7 +44,7 @@ public class MySQL
     // A: all persons that a person endorses, i.e., endorsements of depth one.
     public ResultSet exA(int id) throws SQLException
     {
-        System.out.println( "\n::::::::::::::: Ex: A :::::::::::::::" );
+        System.out.println( "\n::::::::::::::: Ex: A (ID: " + id + ") :::::::::::::::" );
 
         // language=SQL
         String query = "";
@@ -63,7 +64,7 @@ public class MySQL
     // B: all persons that are endorsed by endorsed persons of a person, i.e., endorsements of depth two.
     public ResultSet exB(int id) throws SQLException
     {
-        System.out.println( "\n::::::::::::::: Ex: B :::::::::::::::" );
+        System.out.println( "\n::::::::::::::: Ex: B (ID: " + id + ") :::::::::::::::" );
 
         // language=SQL
         String query = "";
@@ -86,7 +87,7 @@ public class MySQL
     // C: endorsements of depth three.
     public ResultSet exC(int id) throws SQLException
     {
-        System.out.println( "\n::::::::::::::: Ex: C :::::::::::::::" );
+        System.out.println( "\n::::::::::::::: Ex: C (ID: " + id + ") :::::::::::::::" );
 
         // language=SQL
         String query = "";
@@ -112,7 +113,7 @@ public class MySQL
     // D: endorsements of depth four.
     public ResultSet exD(int id) throws SQLException
     {
-        System.out.println( "\n::::::::::::::: Ex: D :::::::::::::::" );
+        System.out.println( "\n::::::::::::::: Ex: D (ID: " + id + ") :::::::::::::::" );
 
         // language=SQL
         String query = "";
@@ -141,7 +142,7 @@ public class MySQL
     // E: endorsements of depth five.
     public ResultSet exE(int id) throws SQLException
     {
-        System.out.println( "\n::::::::::::::: Ex: E :::::::::::::::" );
+        System.out.println( "\n::::::::::::::: Ex: E (ID: " + id + ") :::::::::::::::" );
 
         // language=SQL
         String query = "";
@@ -170,18 +171,17 @@ public class MySQL
         return resultSet;
     }
 
-    public void runEx(ResultSet resultSet) throws SQLException
+    public void runEx(ResultSet resultSet, ArrayList<String> timeList) throws SQLException
     {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
 
         while( resultSet.next() )
         {
             System.out.println( resultSet.getString( "friend_name" ) );
         }
 
-        long endTime = System.currentTimeMillis();
+        long endTime = System.nanoTime();
 
-        System.out.println( "\n:::::::::::::::::::::::::::::::::::::" );
-        System.out.println( "Time: " + ( endTime - startTime ) + " ms" );
+        timeList.add( Long.toString( endTime - startTime ) );
     }
 }

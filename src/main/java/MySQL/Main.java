@@ -1,5 +1,7 @@
 package MySQL;
 
+import Other.Functions;
+
 import java.sql.SQLException;
 
 /**
@@ -10,9 +12,17 @@ public class Main
     public static void main(String[] args) throws SQLException
     {
         MySQL mySQL = new MySQL();
+        Functions func = new Functions();
 
         mySQL.connect();
-        mySQL.runEx( mySQL.exA(0) );
+
+        for( Integer id : func.getIdList() )
+        {
+            mySQL.runEx( mySQL.exA( id ), func.getTimeList() );
+        }
+
         mySQL.close();
+
+        func.writeToCSVFile( "MySQL-exA-TimeResult" );
     }
 }
