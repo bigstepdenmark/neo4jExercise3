@@ -30,27 +30,75 @@ public class Neo4j
     public StatementResult exA(int id)
     {
         System.out.println( "\n::::::::::::::: Ex: A (ID: " + id + ") :::::::::::::::" );
-        return session.run( "MATCH (me {id:" + id + "})-[:ENDORSES]->(other) RETURN other" );
+
+        String query = "";
+        query += "MATCH (me {id:" + id + "})";
+        query += "-[:ENDORSES]->(other)";
+        query += "RETURN other";
+
+        return session.run( query );
     }
 
     // B: all persons that are endorsed by endorsed persons of a person, i.e., endorsements of depth two.
-    public void exB(int id)
+    public StatementResult exB(int id)
     {
+        System.out.println( "\n::::::::::::::: Ex: B (ID: " + id + ") :::::::::::::::" );
+
+        String query = "";
+        query += "MATCH (me {id:" + id + "})";
+        query += "-[:ENDORSES]->(otherdeep1)";
+        query += "-[:ENDORSES]->(other)";
+        query += "RETURN other";
+
+        return session.run( query );
     }
 
     // C: endorsements of depth three.
-    public void exC(int id)
+    public StatementResult exC(int id)
     {
+        System.out.println( "\n::::::::::::::: Ex: C (ID: " + id + ") :::::::::::::::" );
+
+        String query = "";
+        query += "MATCH (me {id:" + id + "})";
+        query += "-[:ENDORSES]->(otherdeep1)";
+        query += "-[:ENDORSES]->(otherdeep2)";
+        query += "-[:ENDORSES]->(other)";
+        query += "RETURN other";
+
+        return session.run( query );
     }
 
     // D: endorsements of depth four.
-    public void exD(int id)
+    public StatementResult exD(int id)
     {
+        System.out.println( "\n::::::::::::::: Ex: D (ID: " + id + ") :::::::::::::::" );
+
+        String query = "";
+        query += "MATCH (me {id:" + id + "})";
+        query += "-[:ENDORSES]->(otherdeep1)";
+        query += "-[:ENDORSES]->(otherdeep2)";
+        query += "-[:ENDORSES]->(otherdeep3)";
+        query += "-[:ENDORSES]->(other)";
+        query += "RETURN other";
+
+        return session.run( query );
     }
 
     // E: endorsements of depth five.
-    public void exE(int id)
+    public StatementResult exE(int id)
     {
+        System.out.println( "\n::::::::::::::: Ex: E (ID: " + id + ") :::::::::::::::" );
+
+        String query = "";
+        query += "MATCH (me {id:" + id + "})";
+        query += "-[:ENDORSES]->(otherdeep1)";
+        query += "-[:ENDORSES]->(otherdeep2)";
+        query += "-[:ENDORSES]->(otherdeep3)";
+        query += "-[:ENDORSES]->(otherdeep4)";
+        query += "-[:ENDORSES]->(other)";
+        query += "RETURN other";
+
+        return session.run( query );
     }
 
     public void runEx(StatementResult result, ArrayList<String> timeList)

@@ -21,6 +21,6 @@ public class Main
 
         neo4j.close();
 
-        func.writeToCSVFile( "Neo4j-exA-TimeResult" );
+        //func.writeToCSVFile( "Neo4j-exA-TimeResult" );
     }
 }

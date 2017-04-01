@@ -58,7 +58,8 @@ public class Functions
     {
         try
         {
-            FileWriter writer = new FileWriter( "/Users/ismailcam/IdeaProjects/neo4j/src/files/" + filename + ".csv" );
+            FileWriter writer = new FileWriter( "/Users/ismailcam/IdeaProjects/neo4j/src/files/" + filename + ".csv", true );
+            writer.write( "\n" );
             writer.write( timeList.stream().collect( Collectors.joining( "," ) ) );
             writer.close();
         }
