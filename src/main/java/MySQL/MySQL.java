@@ -18,9 +18,9 @@ public class MySQL
 
     public Connection connect()
     {
-        String url = "jdbc:mysql://127.0.0.1:3306/mydb";
+        String url = "jdbc:mysql://127.0.0.1:8889/mydb";
         String user = "root";
-        String password = "pwd";
+        String password = "root";
 
         try
         {

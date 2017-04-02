@@ -14,21 +14,17 @@ public class Main
         MySQL mySQL = new MySQL();
         Functions func = new Functions();
 
-        mySQL.connect();
-        // ::::::::::::::::::::::::::::::::::::::::::::::::
-
         for( Integer id : func.getIdList() )
         {
+            mySQL.connect();
             //mySQL.runEx( mySQL.exA( id ), func.getTimeList() );
             //mySQL.runEx( mySQL.exB( id ), func.getTimeList() );
             //mySQL.runEx( mySQL.exC( id ), func.getTimeList() );
             //mySQL.runEx( mySQL.exD( id ), func.getTimeList() );
-            mySQL.runEx( mySQL.exE( id ), func.getTimeList() );
+           //mySQL.runEx( mySQL.exE( id ), func.getTimeList() );
+            mySQL.close();
         }
 
         func.writeToCSVFile( "MySQL-TimeResults" );
-
-        // ::::::::::::::::::::::::::::::::::::::::::::::::
-        mySQL.close();
     }
 }

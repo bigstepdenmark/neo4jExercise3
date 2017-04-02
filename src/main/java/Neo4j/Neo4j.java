@@ -31,10 +31,7 @@ public class Neo4j
     {
         System.out.println( "\n::::::::::::::: Ex: A (ID: " + id + ") :::::::::::::::" );
 
-        String query = "";
-        query += "MATCH (me {id:" + id + "})";
-        query += "-[:ENDORSES]->(other)";
-        query += "RETURN other";
+        String query = String.format( "MATCH (me {id: %d})-[:ENDORSES]->(f) RETURN distinct f.name", id );
 
         return session.run( query );
     }
@@ -44,11 +41,14 @@ public class Neo4j
     {
         System.out.println( "\n::::::::::::::: Ex: B (ID: " + id + ") :::::::::::::::" );
 
-        String query = "";
-        query += "MATCH (me {id:" + id + "})";
-        query += "-[:ENDORSES]->(otherdeep1)";
-        query += "-[:ENDORSES]->(other)";
-        query += "RETURN other";
+        // Before
+//         String query = String.format( "MATCH (me {id: %d})" +
+//                                              "-[:ENDORSES]->()" +
+//                                              "-[:ENDORSES]->(f) " +
+//                                              "RETURN distinct f.name", id );
+
+        // After
+        String query = String.format( "MATCH (me {id: %d})-[:ENDORSES*2]->(f) RETURN distinct f.name", id );
 
         return session.run( query );
     }
@@ -58,12 +58,7 @@ public class Neo4j
     {
         System.out.println( "\n::::::::::::::: Ex: C (ID: " + id + ") :::::::::::::::" );
 
-        String query = "";
-        query += "MATCH (me {id:" + id + "})";
-        query += "-[:ENDORSES]->(otherdeep1)";
-        query += "-[:ENDORSES]->(otherdeep2)";
-        query += "-[:ENDORSES]->(other)";
-        query += "RETURN other";
+        String query = String.format( "MATCH (me {id: %d})-[:ENDORSES*3]->(f) RETURN distinct f.name", id );
 
         return session.run( query );
     }
@@ -73,13 +68,7 @@ public class Neo4j
     {
         System.out.println( "\n::::::::::::::: Ex: D (ID: " + id + ") :::::::::::::::" );
 
-        String query = "";
-        query += "MATCH (me {id:" + id + "})";
-        query += "-[:ENDORSES]->(otherdeep1)";
-        query += "-[:ENDORSES]->(otherdeep2)";
-        query += "-[:ENDORSES]->(otherdeep3)";
-        query += "-[:ENDORSES]->(other)";
-        query += "RETURN other";
+        String query = String.format( "MATCH (me {id: %d})-[:ENDORSES*4]->(f) RETURN distinct f.name", id );
 
         return session.run( query );
     }
@@ -89,14 +78,7 @@ public class Neo4j
     {
         System.out.println( "\n::::::::::::::: Ex: E (ID: " + id + ") :::::::::::::::" );
 
-        String query = "";
-        query += "MATCH (me {id:" + id + "})";
-        query += "-[:ENDORSES]->(otherdeep1)";
-        query += "-[:ENDORSES]->(otherdeep2)";
-        query += "-[:ENDORSES]->(otherdeep3)";
-        query += "-[:ENDORSES]->(otherdeep4)";
-        query += "-[:ENDORSES]->(other)";
-        query += "RETURN other";
+        String query = String.format( "MATCH (me {id: %d})-[:ENDORSES*5]->(f) RETURN distinct f.name", id );
 
         return session.run( query );
     }
@@ -108,7 +90,7 @@ public class Neo4j
         while( result.hasNext() )
         {
             Record record = result.next();
-            System.out.println( record.get( "other" ).get( "name" ).asString() );
+            System.out.println( record.get( "f.name" ).asString() );
         }
 
         long endTime = System.nanoTime();
