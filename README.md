@@ -6,7 +6,7 @@ Ismail Cam and Mazlum Dogan Sert
 
 ### Results
 
-<table>
+<table width="100%">
     <thead>
     <tr>
         <th>Opgave</th>
