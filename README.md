@@ -9,7 +9,7 @@ Ismail Cam and Mazlum Dogan Sert
 <table width="100%">
     <thead>
     <tr>
-        <th>Opgave</th>
+        <th>Queries</th>
         <th>Neo4j AVG</th>
         <th>MySQL AVG</th>
         <th>Neo4j Median</th>
